@@ -9,7 +9,7 @@ public class FrontendTests {
 
     // runCommandLoop shows instructions at start, help shows them again, quit exits
     @Test
-    public void frontendTest1() {
+    public void roleTest1() {
         TextUITester tester = new TextUITester("help\nquit\n");
         Scanner in = new Scanner(System.in);
         BackendInterface backend = new Backend_Placeholder(new Tree_Placeholder());
@@ -28,7 +28,7 @@ public class FrontendTests {
 
     // test submit and show commands, including invalid input handling
     @Test
-    public void frontendTest2() {
+    public void roleTest2() {
         Scanner in = new Scanner(System.in);
         Frontend frontend = new Frontend(in, new Backend_Placeholder(new Tree_Placeholder()));
 
@@ -49,7 +49,7 @@ public class FrontendTests {
 
     // test submit multiple, location filter, and show fastest times
     @Test
-    public void frontendTest3() {
+    public void roleTest3() {
         Scanner in = new Scanner(System.in);
         Frontend frontend = new Frontend(in, new Backend_Placeholder(new Tree_Placeholder()));
 
