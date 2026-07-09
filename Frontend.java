@@ -10,6 +10,11 @@ public class Frontend implements FrontendInterface {
     private Integer low = null;
     private Integer high = null;
 
+    /**
+     * Constructor for Frontend
+     * @param in scanner for user input
+     * @param backend backend to use for data operations
+     */
     public Frontend(Scanner in, BackendInterface backend) {
         this.in = in;
         this.backend = backend;
@@ -71,7 +76,10 @@ public class Frontend implements FrontendInterface {
         }
     }
 
-    // submit NAME CONTINENT SCORE DAMAGE_TAKEN COLLECTABLES COMPLETION_TIME
+    /**
+     * Processes a submit command to add a single game record
+     * @param command the full command string with arguments
+     */
     private void submit(String command) {
         String[] parts = command.split("\\s+");
         if (parts.length != 7) {
@@ -94,7 +102,10 @@ public class Frontend implements FrontendInterface {
         System.out.println("Added record for " + parts[1]);
     }
 
-    // submit multiple FILEPATH
+    /**
+     * Loads multiple records from a file
+     * @param command the command with file path
+     */
     private void submitMultiple(String command) {
         String[] parts = command.split("\\s+");
         if (parts.length != 3) {
@@ -109,7 +120,10 @@ public class Frontend implements FrontendInterface {
         }
     }
 
-    // collectables MAX  or  collectables MIN to MAX
+    /**
+     * Sets the collectables range filter
+     * @param command can be "collectables MAX" or "collectables MIN to MAX"
+     */
     private void collectables(String command) {
         String[] parts = command.split("\\s+");
         if (parts.length == 2) {
@@ -136,7 +150,10 @@ public class Frontend implements FrontendInterface {
         }
     }
 
-    // location CONTINENT
+    /**
+     * Filters records by continent
+     * @param command the location command with continent name
+     */
     private void location(String command) {
         String[] parts = command.split("\\s+");
         if (parts.length != 2) {
@@ -149,9 +166,14 @@ public class Frontend implements FrontendInterface {
             return;
         }
         backend.applyAndSetFilter(continent);
+        System.out.println("Filtered records to " + parts[1].toUpperCase());
     }
 
-    // show MAX_COUNT
+    /**
+     * Displays records based on current filters and range
+     * Note: this also resets the range in the backend
+     * @param command show command with max count
+     */
     private void show(String command) {
         String[] parts = command.split("\\s+");
         if (parts.length != 2) {
@@ -183,7 +205,7 @@ public class Frontend implements FrontendInterface {
     private GameRecord.Continent toContinent(String s) {
         try {
             return GameRecord.Continent.valueOf(s.toUpperCase());
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             return null;
         }
     }
@@ -192,7 +214,7 @@ public class Frontend implements FrontendInterface {
     private Integer toInt(String s) {
         try {
             return Integer.valueOf(s);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return null;
         }
     }
